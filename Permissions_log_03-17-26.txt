@@ -1,0 +1,21 @@
+DATE: 2026-03-17
+TAsk: Create a file with groups access for kali2, deny kali3
+
+steps 
+1. Created group > sudo groupadd project_name
+2. Add user kali2 to group > sudo usermod -aG project_name kali2
+3. Create file 'team_notes' > touch ~/team_notes.txt
+4. Set group ownnership to project_team > sudo chown greenoxeans:project_team team_notes.txt
+5. Apply groups permissions/other deny > chmod 770 ~/team_notes.txt
+
+Expected Outcomes:
+- Ownner and groups can read/write
+- Others permissions denied
+
+Actual Outcome:
+- kali2: access granted
+- kali3: access denied
+- greenoxeans: full access
+
+Notes:
+Worked as expected / permissions 770 applied correctly / only works on files.txt  
