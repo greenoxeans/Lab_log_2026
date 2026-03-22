@@ -1,0 +1,31 @@
+DATE: 2026-03-22
+TAsk: Create 3 files using the next 
+.chmod 444 
+.chmod 700
+.chmod 750 + groups permission for kali3 in writer groups  and deny kali2
+
+steps 
+1. create a directory (mixed_lab) inside : 
+.readondly.txt > chmod 444
+.owner_exec.sh > chmod 700
+.group_exec.sh > chmod 750
+
+2.delete kali 2 from writer group > sudo deluser kali2 writer
+3.add user kali3 to writer group > sudo usermod -aG writer kali3
+4.provide file permission groups > sudo chown useradmin:group ~/mixed_lab/group_exec.sh
+
+Expected Outcomes:
+-readonly.txt > everyone can read / nobody can write even the useradmin
+-owner_exec.sh > only useradmin can run it / test with bash/echo/cat command with kali2 and kali3
+-group_exec.sh > only writer group members and useradmin can read/run - useradmin can rwx.
+
+Actual Outcome:
+- kali2: access denied to group_exec.sh
+- kali3: access granted to group_exec.sh 
+- greenoxeans: useradmin can write all file except to readonly.txt
+
+Observations:
+-while useradmin not chmod permissions for a file in a group others will cat in, not matters if that file is inside a group members's permissions.
+
+Notes:
+Worked as expected / groups permission applied/ controlled groups access will work chmod 750 and chwon group permission. 
