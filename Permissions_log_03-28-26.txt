@@ -1,0 +1,26 @@
+## Date 03-28-26 ##
+
+Task: Create file loan.txt inside keeper directory with group access' keepergate' for kaly4, deny to kali2
+
+steps;
+-chmod 711 ~/ (to force traversal list to others)
+-mkdir keeper
+-echo " content" > ~/keeper/loan.txt
+-sudo chwon greenoxeans: keepergate ~/keeper
+-sudo chown greenoxeans: keepergate ~/keeper/loan.txt
+-sudo usermod -aG keepergate kali4
+-chmod 770 ~/keeper/loan.txt
+-testint kali4 and kali2
+
+
+Expected outcomes:
+-Owner and groups can rwx
+-Others Permissions denied
+
+Actual outcomes:
+-kali2 ~/directories Permissions denied and loan.txt Permission denied.
+-kali3 ~/directories Permissions denied and loan.txt access granted
+-Admin "greenoxeans" Full access granted
+
+Notes:
+worked as I expected / Permissions denied to others / granted to groups and admin
