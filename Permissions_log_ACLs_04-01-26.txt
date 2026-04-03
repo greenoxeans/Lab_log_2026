@@ -1,0 +1,24 @@
+## Date 04-01-26 ##
+
+Task: ACls on collab.txt to users kali2, kali3, kali4
+remind the file is under sysadmind and collabgate group control
+steps;
+-Re_setup collab directory chmod 711
+-chmod 700 to collab.txt
+-add ACLs read sclataions for user kali2 > sudo setfacl -m u:kali2:r ~/collab/collab.txt
+-add ACLs write scalations for user kali3 > sudo setfacl -m u:kali2:w ~/collab/collab.txt
+-remove ACLS sclations for user kali4 > sudo setfacl -x u:kali4 ~/collab/collab.txt
+-testing with each users
+
+Expected outcomes:
+-Owner and groups can rwx
+-others could cd inside collab directory but not list because chmod 711 and collab.txt chmod 700
+-others could get traversal directory after ACLs scalations setup and previous chmod traversal
+
+Actual outcomes:
+-kali2 ~/collab/collab.txt > read granted / write and execute Permission Denied
+-kali3 ~/collab/collab,txt > write granted / rx Permissions Denied
+-Kali4 ~/collab/collab.txt > Permissions Denied 
+
+Notes:
+worked as I expected / SysAdmin Permissions owner in directory and file.
