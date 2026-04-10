@@ -1,0 +1,52 @@
+## Date 09-04-2026 ##
+-----GOTCHA NOTE----
+Task: Create a groups "auditgate1" and add kali2 and kali3 in.
+- Keep outta auditgate1 to kali4.
+-Provide permissions for groups member to auditspace.txt
+-Apply ACLs scalations to excecute only to kali4
+-kali2 read only and kali3 write even when they are in groupowner
+
+steps;
+-mkdir Dektop/auditgate
+-touch Desktop/auditgate/auditspace.txt
+chmod 711 ~/
+chmod 700 Desktop/auditgate/auditspace.txt
+-sudo groupadd auditagte1 
+-sudo usermod -aG auditgate1 kali2 && kali3
+-setfacl -m u:kali2:r Desktop/auditgate/auditspace.txt
+-setfacl -m u:kali3:w Desktop/auditgate/auditspace.txt
+-setfacl -m u:kali4:x Desktop/auditgate/auditspace.txt
+
+Expected outcomes:
+-All user Permissions Denied because the mask restristion 
+# file: Desktop/auditgate/auditspace.txt
+# owner: ---------
+# group: ---------
+user::rwx
+user:kali2:r--                  #effective:---
+user:kali3:-w-                  #effective:---
+user:kali4:--x                  #effective:---
+group::---
+mask::---
+other::---
+
+-fix the mask > setfacl -m m:rwx Desktop/auditgate/auditspace.txt
+
+Actual outcomes:
+-kali2 and kali3 can read and write over the doc and kali4 ACLs Permission Granted
+# file: Desktop/auditgate/auditspace.txt
+# owner: -----------
+# group: -----------
+user::rwx
+user:kali2:r--
+user:kali3:-w-
+user:kali4:--x
+group::---
+mask::rwx
+other::---
+
+
+Notes:
+-Kali2 read Permission Granted 
+-kali3 write Permissions Granted
+-kali4 ACLs Permissions Denied and Granted 
